@@ -1,0 +1,24 @@
+<Project>
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- Logging -->
+        <PackageVersion Include="Serilog.AspNetCore" Version="11.0.0" />
+        <!-- API / Swagger -->
+        <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="11.0.0" />
+        <PackageVersion Include="Swashbuckle.AspNetCore" Version="11.0.1" />
+        
+        <!-- Database -->
+        <PackageVersion Include="Npgsql" Version="11.0.0" />
+        <PackageVersion Include="Dapper" Version="2.1.100" />
+
+        <!-- Testing -->
+        <PackageVersion Include="coverlet.collector" Version="10.1.1" />
+        <PackageVersion Include="Microsoft.Net.Test.Sdk" Version="18.12.0" />
+        <PackageVersion Include="xunit" Version="2.9.3" />
+        <PackageVersion Include="xunit.runner.visualstudio" Version="4.0.1" />
+        <PackageVersion Include="Testcontainers.PostgreSql" Version="4.17.0" />
+    </ItemGroup>
+</Project>

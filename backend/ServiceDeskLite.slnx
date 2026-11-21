@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ServiceDeskLite.Api/ServiceDeskLite.Api.csproj" />
+    <Project Path="src/ServiceDeskLite.Application/ServiceDeskLite.Application.csproj" />
+    <Project Path="src/ServiceDeskLite.Domain/ServiceDeskLite.Domain.csproj" />
+    <Project Path="src/ServiceDeskLite.Infrastructure/ServiceDeskLite.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ServiceDeskLite.IntegrationTests/ServiceDeskLite.IntegrationTests.csproj" />
+    <Project Path="tests/ServiceDeskLite.UnitTests/ServiceDeskLite.UnitTests.csproj" />
+  </Folder>
+</Solution>

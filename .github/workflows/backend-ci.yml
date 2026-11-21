@@ -24,13 +24,13 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '11.0.x'
-        dotnet-quality: 'preview
+        dotnet-quality: 'preview'
 
     - name: Restore dependencies
-      run: dotnet restore backend/ServiceDeskLite.sln
+      run: dotnet restore backend/ServiceDeskLite.slnx
 
     - name: Build
-      run: dotnet build backend/ServiceDeskLite.sln --no-restore -warnaserror
+      run: dotnet build backend/ServiceDeskLite.slnx --no-restore -warnaserror
 
     - name: Test
-      run: dotnet test backend/ServiceDeskLite.sln --no-build --verbosity normal
+      run: dotnet test backend/ServiceDeskLite.slnx --no-build --verbosity normal

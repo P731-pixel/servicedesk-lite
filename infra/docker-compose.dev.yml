@@ -1,0 +1,87 @@
+name: servicedesk-lite-dev
+
+services:
+  # ------------------------------------------
+  # Main Database (for ServiceDesk API)
+  # ------------------------------------------
+  postgres-main:
+    image: postgres:16-alpine
+    container_name: sd-postgres-main
+    environment:
+      POSTGRES_DB: ${POSTGRES_MAIN_DB}
+      POSTGRES_USER: ${POSTGRES_MAIN_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_MAIN_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_main_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_MAIN_USER} -d ${POSTGRES_MAIN_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ------------------------------------------
+  # External Catalog Database (for ODBC simulation)
+  # ------------------------------------------
+  postgres-catalog:
+    image: postgres:16-alpine
+    container_name: sd-postgres-catalog
+    environment:
+      POSTGRES_DB: ${POSTGRES_CATALOG_DB}
+      POSTGRES_USER: ${POSTGRES_CATALOG_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_CATALOG_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_catalog_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_CATALOG_USER} -d ${POSTGRES_CATALOG_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ------------------------------------------
+  # Keycloak Database
+  # ------------------------------------------
+  postgres-keycloak:
+    image: postgres:16-alpine
+    container_name: sd-postgres-keycloak
+    environment:
+      POSTGRES_DB: ${POSTGRES_KEYCLOAK_DB}
+      POSTGRES_USER: ${POSTGRES_KEYCLOAK_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_KEYCLOAK_PASSWORD}
+    volumes:
+      - postgres_keycloak_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_KEYCLOAK_USER} -d ${POSTGRES_KEYCLOAK_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ------------------------------------------
+  # Keycloak Identity Provider
+  # ------------------------------------------
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0
+    container_name: sd-keycloak
+    command: start-dev
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres-keycloak:5432/${POSTGRES_KEYCLOAK_DB}
+      KC_DB_USERNAME: ${POSTGRES_KEYCLOAK_USER}
+      KC_DB_PASSWORD: ${POSTGRES_KEYCLOAK_PASSWORD}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_HTTP_ENABLED: "true"
+      KC_HOSTNAME_STRICT: "false"
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres-keycloak:
+        condition: service_healthy
+
+volumes:
+  postgres_main_data:
+  postgres_catalog_data:
+  postgres_keycloak_data:

@@ -1,0 +1,63 @@
+# -------- OS --------
+.DS_Store
+Thumbs.db
+*.swp
+
+# -------- IDE / tools --------
+.idea/
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+codealike.json
+
+# -------- .NET build output --------
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+artifacts/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.trx
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+project.lock.json
+project.fragment.lock.json
+*.nuget.props
+*.nuget.targets
+
+# -------- Node --------
+node_modules/
+dist/
+build/
+.vite/
+.cache/
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# -------- env / secrets --------
+.env
+.env.*
+!.env.example
+
+# -------- Local data --------
+infra/data/
+infra/logs/
+*.db
+*.sqlite
+*.sqlite3
